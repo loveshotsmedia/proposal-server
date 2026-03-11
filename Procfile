@@ -1,1 +1,1 @@
-web: uvicorn server:app --host 0.0.0.0 --port $PORT
+web: uvicorn form_server:app --host 0.0.0.0 --port $PORT

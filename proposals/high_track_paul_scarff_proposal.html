@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniMe™ Equipment Division &mdash; Paul Scarff | High Track</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        #cursor-label {
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212,175,55,0.6), 0 0 20px rgba(212,175,55,0.3);
+            transform: translate(calc(-100% - 18px), -50%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00cc66;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 8px rgba(0,204,102,0.8), 0 0 16px rgba(0,204,102,0.4);
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #b0b0b0;
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .proposal-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 100%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 60px 0 48px;
+            text-align: center;
+        }
+
+        .brand-name {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #d4af37;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 42px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 18px;
+            color: #b0b0b0;
+            margin-bottom: 8px;
+        }
+
+        .hero .prepared-for {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: rgba(212, 175, 55, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 32px;
+        }
+
+        .hero .client-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 22px;
+            color: #d4af37;
+            margin-top: 8px;
+        }
+
+        .hero .date-line {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 16px;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        /* ── Sections ── */
+        .section {
+            padding: 56px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .section:last-of-type { border-bottom: none; }
+
+        .section-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: #d4af37;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .section h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .section h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #e8e8e8;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        .section p {
+            font-size: 15px;
+            color: #b0b0b0;
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .section ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 16px;
+        }
+
+        .section ul li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        .section ul li::before {
+            content: '\25B8';
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-size: 14px;
+        }
+
+        .gold-text { color: #d4af37; font-weight: 600; }
+        .highlight-text { color: #e0e0e0; font-weight: 500; }
+
+        /* ── Pain Points ── */
+        .pain-points {
+            background: #0f0f0f;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin: 24px 0;
+        }
+
+        .pain-points li { margin-bottom: 14px; }
+        .pain-points li strong { color: #e8e8e8; }
+
+        /* ── Workflow Steps ── */
+        .workflow-step {
+            background: #0f0f0f;
+            border-left: 3px solid #d4af37;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .workflow-step .step-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: #d4af37;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .workflow-step p { margin-bottom: 6px; font-size: 14px; }
+
+        /* ── Phase Cards ── */
+        .phase-card {
+            background: #0f0f0f;
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            border-radius: 10px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+
+        .phase-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .phase-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #0a0a0a;
+            background: #d4af37;
+            padding: 4px 12px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        .phase-card-header h3 {
+            margin: 0;
+            font-size: 17px;
+            color: #ffffff;
+        }
+
+        .phase-duration {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: rgba(212, 175, 55, 0.5);
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        .scope-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .scope-table tbody td {
+            font-size: 14px;
+            color: #b0b0b0;
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            vertical-align: top;
+        }
+
+        .scope-table tbody td:first-child {
+            color: #e8e8e8;
+            font-weight: 500;
+            width: 38%;
+            white-space: nowrap;
+        }
+
+        .scope-table tbody tr:last-child td { border-bottom: none; }
+
+        .phase-goal {
+            font-size: 13px;
+            color: rgba(212, 175, 55, 0.7);
+            font-style: italic;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .phase-deliverable {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+            font-style: italic;
+        }
+
+        /* ── Partner Grid ── */
+        .partner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .partner-box {
+            background: #0f0f0f;
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            border-radius: 10px;
+            padding: 24px;
+        }
+
+        .partner-box .partner-name {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: #d4af37;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .partner-box .partner-role {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .partner-box .equity-badge {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 22px;
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        /* ── Revenue Tables ── */
+        .revenue-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+
+        .revenue-table thead th {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #d4af37;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .revenue-table tbody td {
+            font-size: 14px;
+            color: #b0b0b0;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .revenue-table tbody td:first-child { color: #e8e8e8; font-weight: 500; }
+        .revenue-table tbody tr:hover { background: rgba(212, 175, 55, 0.04); }
+        .revenue-table .gold-cell { color: #d4af37; font-weight: 600; }
+        .revenue-table .highlight-row td { background: rgba(212, 175, 55, 0.06); }
+
+        /* ── Exit Scenarios ── */
+        .exit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .exit-box {
+            background: #0f0f0f;
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .exit-box .exit-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(212, 175, 55, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .exit-box .exit-amount {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 26px;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .exit-box .exit-multiple {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .exit-box.highlight {
+            border-color: rgba(212, 175, 55, 0.35);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .exit-box.highlight .exit-amount { color: #d4af37; }
+
+        /* ── Moat Cards ── */
+        .moat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .moat-card {
+            background: #0f0f0f;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            padding: 22px;
+        }
+
+        .moat-card .moat-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(212, 175, 55, 0.4);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .moat-card .moat-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #e8e8e8;
+            margin-bottom: 10px;
+        }
+
+        .moat-card p {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        /* ── Stat Strip ── */
+        .stat-strip {
+            display: flex;
+            gap: 0;
+            margin: 24px 0;
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 20px 16px;
+            text-align: center;
+            border-right: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .stat-item:last-child { border-right: none; }
+
+        .stat-value {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 26px;
+            color: #d4af37;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* ── Timeline Table ── */
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+
+        .timeline-table thead th {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #d4af37;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .timeline-table tbody td {
+            font-size: 14px;
+            color: #b0b0b0;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+        }
+
+        .timeline-table tbody tr:hover { background: rgba(212, 175, 55, 0.04); }
+        .timeline-table .phase-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: rgba(212, 175, 55, 0.5);
+        }
+
+        .timeline-total {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 6px;
+            padding: 16px 24px;
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-total span:first-child {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: #e8e8e8;
+            letter-spacing: 1px;
+        }
+
+        .timeline-total span:last-child {
+            font-family: 'Space Mono', monospace;
+            font-size: 15px;
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        /* ── Investment ── */
+        .investment-card {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .investment-card .total-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: rgba(212, 175, 55, 0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .investment-card .total-amount {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 52px;
+            color: #d4af37;
+            margin-bottom: 4px;
+        }
+
+        .investment-card .total-sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-bottom: 32px;
+        }
+
+        .payment-split {
+            display: flex;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .payment-split .split-box {
+            flex: 1;
+            background: rgba(212, 175, 55, 0.06);
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .split-box .split-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(212, 175, 55, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .split-box .split-amount {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 26px;
+            color: #e8e8e8;
+            margin-bottom: 6px;
+        }
+
+        .split-box .split-note {
+            font-size: 13px;
+            color: #b0b0b0;
+        }
+
+        /* ── Software Table ── */
+        .software-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+
+        .software-table thead th {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #d4af37;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .software-table tbody td {
+            font-size: 14px;
+            color: #b0b0b0;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .software-table tbody td:first-child { color: #e8e8e8; font-weight: 500; }
+        .software-table tbody tr:hover { background: rgba(212, 175, 55, 0.04); }
+
+        /* ── Next Steps ── */
+        .steps-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+            margin: 24px 0;
+        }
+
+        .steps-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding: 18px 20px 18px 64px;
+            background: #0f0f0f;
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #b0b0b0;
+        }
+
+        .steps-list li::before {
+            content: counter(step-counter, decimal-leading-zero);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .steps-list li strong { color: #e8e8e8; }
+
+        /* ── Contact Block ── */
+        .contact-block {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #0f0f0f;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 32px 48px;
+            margin-bottom: 32px;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .contact-row .contact-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(212, 175, 55, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            width: 80px;
+            text-align: right;
+        }
+
+        .contact-row .contact-value {
+            font-size: 15px;
+            color: #e8e8e8;
+            font-weight: 500;
+        }
+
+        /* ── Gold Divider ── */
+        .gold-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, rgba(212, 175, 55, 0.2));
+            margin: 0 auto 32px;
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            text-align: center;
+            padding: 56px 0 40px;
+        }
+
+        .cta-section h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 15px;
+            color: #b0b0b0;
+            margin-bottom: 32px;
+        }
+
+        /* ── Confidential Banner ── */
+        .confidential {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 4px;
+            padding: 10px 20px;
+            text-align: center;
+            margin-top: 32px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(212, 175, 55, 0.35);
+            text-transform: uppercase;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer .footer-brand {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: rgba(212, 175, 55, 0.5);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.2);
+            margin-bottom: 4px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 28px; }
+            .investment-card .total-amount { font-size: 36px; }
+            .payment-split { flex-direction: column; gap: 12px; }
+            .proposal-container { padding: 0 20px; }
+            .investment-card { padding: 28px 20px; }
+            .partner-grid { grid-template-columns: 1fr; }
+            .moat-grid { grid-template-columns: 1fr; }
+            .exit-grid { grid-template-columns: 1fr; }
+            .stat-strip { flex-direction: column; }
+            .stat-item { border-right: none; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+            .stat-item:last-child { border-bottom: none; }
+            .hero-badges { gap: 10px; }
+            .contact-block { padding: 24px 28px; }
+        }
+
+        @media print {
+            body { background: #0a0a0a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div id="cursor-label"></div>
+
+    <!-- ── HERO ── -->
+    <header class="hero">
+        <div class="proposal-container">
+            <div class="brand-name">WFS AI Solutions Inc.</div>
+            <h1>MiniMe&trade; Equipment Division</h1>
+            <p class="subtitle">AI Dealership Operating System</p>
+            <p class="subtitle" style="font-size:15px; margin-top:4px; color:rgba(255,255,255,0.3);">Voice AI &middot; Lead Capture &middot; Built to License</p>
+            <p class="prepared-for">Partnership Proposal Prepared For</p>
+            <p class="client-name">Paul Scarff &mdash; High Track | CASE Construction Equipment</p>
+            <p class="date-line">May 27, 2026 &nbsp;&middot;&nbsp; Confidential</p>
+            <div class="hero-badges">
+                <span class="hero-badge">40 / 40 / 20 Partnership</span>
+                <span class="hero-badge">Live in 90 Days</span>
+                <span class="hero-badge">$4,140/Dealer/Month</span>
+                <span class="hero-badge">$25M&ndash;$50M Exit Target</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="proposal-container">
+
+        <!-- ── 01 THE PROBLEM ── -->
+        <section class="section">
+            <p class="section-number">01</p>
+            <h2>The Problem</h2>
+
+            <p>Construction equipment dealers are losing deals every week to a problem that has nothing to do with their inventory, their pricing, or their team. They are losing deals to time. A buyer submits an inquiry on Tuesday night and the dealer's first call comes Thursday morning. That buyer already bought from someone else.</p>
+
+            <div class="pain-points">
+                <ul>
+                    <li><strong>47-Hour Average Response Time</strong> &mdash; Industry data puts the average dealer response to a web inquiry at 47 hours. The buyer's expectation is 5 minutes. That gap is where deals go to die.</li>
+                    <li><strong>No Follow-Up System</strong> &mdash; If the first call goes to voicemail, most dealers mark the lead cold. There is no structured sequence. No day-two attempt. No day-five email. A warm lead becomes a ghost in less than a week.</li>
+                    <li><strong>Zero Post-Sale Retention</strong> &mdash; After the deal closes, contact stops. Maintenance reminders, attachment upsells, and service calls depend on whoever remembered to make them. Most of the lifetime value of that customer walks away uncaptured.</li>
+                    <li><strong>No Technology Built for This Market</strong> &mdash; The automotive dealer AI tools (Podium, VinSolutions, Dealer.com) were built for car lots. They do not understand equipment language, equipment timelines, or equipment buyers. No one has built this for construction. Yet.</li>
+                </ul>
+            </div>
+
+            <div class="stat-strip">
+                <div class="stat-item">
+                    <div class="stat-value">47h</div>
+                    <div class="stat-label">Avg Response</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">$47B</div>
+                    <div class="stat-label">NA Market</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4,200</div>
+                    <div class="stat-label">NA Dealers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">42%</div>
+                    <div class="stat-label">AI Close Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">15%</div>
+                    <div class="stat-label">Manual Close Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">98:1</div>
+                    <div class="stat-label">ROI Ratio</div>
+                </div>
+            </div>
+
+            <p>The market is large enough to support a dominant platform. The technology exists. The dealer network does not. That is exactly what this partnership brings together: WFS brings the AI, Paul brings the distribution.</p>
+        </section>
+
+        <!-- ── 02 THE SOLUTION ── -->
+        <section class="section">
+            <p class="section-number">02</p>
+            <h2>The Solution &mdash; MiniMe&trade; Equipment Division</h2>
+
+            <p>MiniMe&trade; Equipment Division is a white-label AI operating system built specifically for construction and heavy equipment dealers. It sits between the dealer's lead sources and their CRM, handling the first contact, qualification, demo booking, and post-sale retention automatically.</p>
+
+            <p>A buyer submits a form. Ninety seconds later, they receive a phone call from an AI that sounds like a knowledgeable equipment representative, asks the right qualification questions, and books a demo on the spot. The dealer never touches the lead until it is warm, qualified, and scheduled.</p>
+
+            <h3>How It Works</h3>
+
+            <div class="workflow-step">
+                <div class="step-title">Layer 01 &mdash; Lead Capture</div>
+                <p>Every lead source feeds into MiniMe&trade;: web forms, Facebook Lead Ads, OEM referral portals, and walk-in registration. No lead enters the system untracked.</p>
+            </div>
+
+            <div class="workflow-step">
+                <div class="step-title">Layer 02 &mdash; Instant Response (under 90 seconds)</div>
+                <p>An AI voice agent calls the lead within 90 seconds of capture. An SMS arrives within 2 minutes. An email sequence starts within 5 minutes. The buyer gets a response before they can open the next tab.</p>
+            </div>
+
+            <div class="workflow-step">
+                <div class="step-title">Layer 03 &mdash; Qualification Engine</div>
+                <p>The AI runs a natural, conversational qualification: equipment type, timeline, budget range, financing interest, trade-in status. Every answer is logged to the CRM automatically. No manual data entry.</p>
+            </div>
+
+            <div class="workflow-step">
+                <div class="step-title">Layer 04 &mdash; Demo Booking</div>
+                <p>Qualified leads are transferred to the dealer's calendar. The AI handles objection handling, time zone coordination, and confirmation reminders. The dealer's sales rep shows up to a booked meeting, not a cold call.</p>
+            </div>
+
+            <div class="workflow-step">
+                <div class="step-title">Layer 05 &mdash; Post-Sale Retention</div>
+                <p>After close, MiniMe&trade; initiates automated maintenance reminders, attachment upsell sequences, and service appointment scheduling. The lifetime value of each customer goes up without any additional dealer effort.</p>
+            </div>
+
+            <h3>The Competitive Gap</h3>
+            <p>No platform does this specifically for construction equipment dealers. Podium handles reviews and messaging. Dealer.com manages OEM web presence. VinSolutions was built for automotive. None of them speak equipment. None of them have dealer relationships in this vertical. <span class="gold-text">That is the gap this partnership occupies.</span></p>
+        </section>
+
+        <!-- ── 03 PARTNERSHIP STRUCTURE ── -->
+        <section class="section">
+            <p class="section-number">03</p>
+            <h2>Partnership Structure</h2>
+
+            <p>This is a joint venture between WFS AI Solutions Inc. and High Track, with a reserved equity pool for the development team. Both founding partners hold equal controlling interests. The structure is designed so that each party contributes what they are uniquely positioned to contribute.</p>
+
+            <div class="partner-grid">
+                <div class="partner-box">
+                    <p class="partner-name">WFS AI Solutions Inc.</p>
+                    <p class="partner-role">AI Infrastructure &amp; Platform</p>
+                    <p class="equity-badge">40%</p>
+                    <ul>
+                        <li>MiniMe&trade; voice agent platform</li>
+                        <li>Backend infrastructure &amp; hosting</li>
+                        <li>CRM integration layer</li>
+                        <li>AI model training &amp; optimization</li>
+                        <li>Platform governance &amp; security</li>
+                        <li>Legal framework &amp; compliance</li>
+                    </ul>
+                </div>
+                <div class="partner-box">
+                    <p class="partner-name">High Track &mdash; Paul Scarff</p>
+                    <p class="partner-role">Dealer Network &amp; Domain Expertise</p>
+                    <p class="equity-badge">40%</p>
+                    <ul>
+                        <li>CASE dealer network access</li>
+                        <li>Industry credibility &amp; trust</li>
+                        <li>Dealer acquisition &amp; sales</li>
+                        <li>Onboarding &amp; customer success</li>
+                        <li>Pricing strategy &amp; positioning</li>
+                        <li>OEM relationship management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="partner-box" style="margin-top: 0; border-top: none;">
+                <p class="partner-name">Development Team Reserved Pool</p>
+                <p class="partner-role">Technical Build &amp; Feature Roadmap &mdash; 20% &mdash; Vesting over 24 months</p>
+                <ul>
+                    <li>Dealer portal &amp; dashboard development</li>
+                    <li>Mobile-first interface</li>
+                    <li>API integrations (HubSpot, CDK, VinSolutions)</li>
+                    <li>Ongoing feature roadmap execution</li>
+                </ul>
+            </div>
+
+            <h3>Decision Rights</h3>
+            <p>AI model updates and platform architecture are WFS's domain. Dealer acquisition, onboarding, and distribution are Paul's domain. Pricing changes, OEM partnerships, expenses above $10,000, and any acquisition or exit require joint approval. Neither partner can accept an acquisition offer without the other's consent.</p>
+
+            <h3>What Makes This Defensible</h3>
+
+            <div class="moat-grid">
+                <div class="moat-card">
+                    <p class="moat-number">MOAT 01</p>
+                    <p class="moat-title">Channel Relationships</p>
+                    <p>Paul's CASE network is not replicable by a technology company entering this market from scratch. Dealer trust takes years to build.</p>
+                </div>
+                <div class="moat-card">
+                    <p class="moat-number">MOAT 02</p>
+                    <p class="moat-title">Domain-Trained AI</p>
+                    <p>The voice AI is trained on equipment language, qualification flows, and dealer workflows. Generic AI platforms do not have this context.</p>
+                </div>
+                <div class="moat-card">
+                    <p class="moat-number">MOAT 03</p>
+                    <p class="moat-title">Workflow Lock-In</p>
+                    <p>Once the platform handles a dealer's lead response, CRM data, and follow-up sequences, switching is a significant operational disruption.</p>
+                </div>
+                <div class="moat-card">
+                    <p class="moat-number">MOAT 04</p>
+                    <p class="moat-title">First-Mover Position</p>
+                    <p>No dominant AI-native platform exists for construction equipment dealers today. The company that gets to 25 dealers first owns the category narrative.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 04 REVENUE MODEL ── -->
+        <section class="section">
+            <p class="section-number">04</p>
+            <h2>Revenue Model</h2>
+
+            <p>Each dealer pays a monthly platform fee based on their size and usage tier. The pricing is intentionally positioned above simple messaging tools and below large enterprise CRM platforms. The value proposition is not cheap software. It is faster revenue and recovered deals.</p>
+
+            <table class="revenue-table">
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Monthly</th>
+                        <th>Annual</th>
+                        <th>Included</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Starter &mdash; Single Location</td>
+                        <td>$1,490</td>
+                        <td>$17,880</td>
+                        <td>Voice AI, 500 leads/month, basic CRM sync</td>
+                    </tr>
+                    <tr>
+                        <td>Growth &mdash; Multi-Location</td>
+                        <td>$2,490</td>
+                        <td>$29,880</td>
+                        <td>Voice AI, 2,000 leads/month, full CRM sync, SMS sequences</td>
+                    </tr>
+                    <tr>
+                        <td>Enterprise &mdash; Regional Group</td>
+                        <td>$4,990</td>
+                        <td>$59,880</td>
+                        <td>Full platform, unlimited leads, custom training, dedicated support</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td><strong>Blended Average</strong></td>
+                        <td class="gold-cell"><strong>$4,140</strong></td>
+                        <td class="gold-cell"><strong>$49,680</strong></td>
+                        <td>Used in all projections below</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Scale Projections</h3>
+
+            <table class="revenue-table">
+                <thead>
+                    <tr>
+                        <th>Dealers</th>
+                        <th>Gross ARR</th>
+                        <th>Operating Costs</th>
+                        <th>Net ARR</th>
+                        <th>Each Partner (40%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3 dealers (Pilot)</td>
+                        <td>$149,040</td>
+                        <td>$36,000</td>
+                        <td>$113,040</td>
+                        <td class="gold-cell">$45,216</td>
+                    </tr>
+                    <tr>
+                        <td>25 dealers</td>
+                        <td>$1,242,000</td>
+                        <td>$180,000</td>
+                        <td>$1,062,000</td>
+                        <td class="gold-cell">$424,800</td>
+                    </tr>
+                    <tr>
+                        <td>50 dealers</td>
+                        <td>$2,484,000</td>
+                        <td>$280,000</td>
+                        <td>$2,204,000</td>
+                        <td class="gold-cell">$881,600</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td><strong>100 dealers</strong></td>
+                        <td><strong>$4,968,000</strong></td>
+                        <td>$420,000</td>
+                        <td><strong>$4,548,000</strong></td>
+                        <td class="gold-cell"><strong>$1,819,200</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Enterprise Valuation at 100 Dealers</h3>
+
+            <div class="exit-grid">
+                <div class="exit-box">
+                    <p class="exit-label">Conservative</p>
+                    <p class="exit-amount">$25M</p>
+                    <p class="exit-multiple">5&times; ARR multiple</p>
+                </div>
+                <div class="exit-box highlight">
+                    <p class="exit-label">Base Case</p>
+                    <p class="exit-amount">$37M</p>
+                    <p class="exit-multiple">7.5&times; ARR multiple</p>
+                </div>
+                <div class="exit-box">
+                    <p class="exit-label">Aggressive</p>
+                    <p class="exit-amount">$50M</p>
+                    <p class="exit-multiple">10&times; ARR multiple</p>
+                </div>
+            </div>
+
+            <p>Potential acquirers include CASE CNH Industrial, Ritchie Bros./IAA, CDK Global, and private equity vertical SaaS roll-ups in construction technology. The right-of-first-refusal provision in the partnership agreement ensures both partners control any exit process.</p>
+        </section>
+
+        <!-- ── 05 INVESTMENT ── -->
+        <section class="section">
+            <p class="section-number">05</p>
+            <h2>Investment</h2>
+
+            <p>The total build investment to deliver a production-ready MiniMe&trade; Equipment Division platform is $76,000 USD, split equally between the two founding partners.</p>
+
+            <div class="investment-card">
+                <p class="total-label">Total Platform Build Investment</p>
+                <p class="total-amount">$76,000</p>
+                <p class="total-sub">USD &mdash; split equally between WFS and Paul Scarff</p>
+                <div class="payment-split">
+                    <div class="split-box">
+                        <p class="split-label">WFS Contribution</p>
+                        <p class="split-amount">$38,000</p>
+                        <p class="split-note">AI infrastructure, voice tech licensing, backend build, legal framework</p>
+                    </div>
+                    <div class="split-box">
+                        <p class="split-label">Paul Scarff Contribution</p>
+                        <p class="split-amount">$38,000</p>
+                        <p class="split-note">Dealer portal, CRM connectors, launch collateral, pilot dealer onboarding</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Capital Allocation</h3>
+
+            <table class="software-table">
+                <thead>
+                    <tr>
+                        <th>Line Item</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AI Voice Agent Development</td>
+                        <td>$18,000</td>
+                        <td>ElevenLabs integration, voice training, equipment script library</td>
+                    </tr>
+                    <tr>
+                        <td>CRM Integration Layer</td>
+                        <td>$12,000</td>
+                        <td>HubSpot, VinSolutions, and CDK connector APIs</td>
+                    </tr>
+                    <tr>
+                        <td>Dealer Portal &amp; Dashboard</td>
+                        <td>$16,000</td>
+                        <td>White-label portal for dealer-facing analytics and management</td>
+                    </tr>
+                    <tr>
+                        <td>Infrastructure &amp; Hosting</td>
+                        <td>$6,000</td>
+                        <td>Railway + Supabase production environment, 12-month runway</td>
+                    </tr>
+                    <tr>
+                        <td>Compliance &amp; Legal</td>
+                        <td>$4,000</td>
+                        <td>Partnership agreement, dealer license agreements, TCPA/CASL compliance</td>
+                    </tr>
+                    <tr>
+                        <td>Sales &amp; Launch Collateral</td>
+                        <td>$8,000</td>
+                        <td>Demo environment, pitch decks, ROI calculator, case study framework</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #d4af37; font-weight: 700;">Total</td>
+                        <td style="color: #d4af37; font-weight: 700;">$76,000</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Additional capital beyond $76,000 requires joint approval and is funded proportionally per equity split. Both partners contribute within 7 days of signing the partnership agreement.</p>
+        </section>
+
+        <!-- ── 06 PLATFORM BUILD ── -->
+        <section class="section">
+            <p class="section-number">06</p>
+            <h2>Platform Build Plan</h2>
+
+            <!-- Phase 1 -->
+            <div class="phase-card">
+                <div class="phase-card-header">
+                    <span class="phase-tag">Phase 1</span>
+                    <h3>Core Platform &amp; Pilot Launch</h3>
+                    <span class="phase-duration">Months 1&ndash;3</span>
+                </div>
+                <p class="phase-goal">Goal: MiniMe&trade; Equipment Division live with 3 pilot dealers from Paul's network, processing real leads in under 90 seconds.</p>
+                <table class="scope-table">
+                    <tbody>
+                        <tr><td>Voice AI Agent</td><td>ElevenLabs Conversational AI, equipment-specific qualification scripts, outbound call logic under 90 seconds from lead capture</td></tr>
+                        <tr><td>Lead Ingestion</td><td>Web form webhook, Facebook Lead Ads integration, OEM inquiry routing, walk-in registration flow</td></tr>
+                        <tr><td>SMS &amp; Email Sequences</td><td>Twilio SMS and SendGrid email with 5-step follow-up sequence, retry logic, and unsubscribe compliance</td></tr>
+                        <tr><td>CRM Sync (Phase 1)</td><td>HubSpot bi-directional sync. Lead created, qualified, and deal stage updated automatically on every interaction</td></tr>
+                        <tr><td>Demo Booking</td><td>Cal.com integration. AI transfers qualified leads directly to dealer calendar with confirmation SMS</td></tr>
+                        <tr><td>Dealer Dashboard (v1)</td><td>Live lead feed, call log with AI summaries, basic analytics: response time, demo rate, close rate</td></tr>
+                        <tr><td>14-Day Onboarding</td><td>Credentials, CRM connected, lead sources live, script approved, team trained, and go-live by day 14</td></tr>
+                    </tbody>
+                </table>
+                <p class="phase-deliverable">Deliverable: 3 pilot dealers live. Real leads processed. Sub-90-second response time validated. First ROI data captured for sales collateral.</p>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase-card">
+                <div class="phase-card-header">
+                    <span class="phase-tag">Phase 2</span>
+                    <h3>Scale to 15 Dealers</h3>
+                    <span class="phase-duration">Months 4&ndash;9</span>
+                </div>
+                <p class="phase-goal">Goal: 15 active dealers, dealer portal v2 with full analytics, CDK and VinSolutions integrations live.</p>
+                <table class="scope-table">
+                    <tbody>
+                        <tr><td>CDK Global Connector</td><td>Inbound lead and deal status sync for dealers running CDK as their DMS</td></tr>
+                        <tr><td>VinSolutions Connector</td><td>Bi-directional contact and pipeline sync</td></tr>
+                        <tr><td>Dealer Portal v2</td><td>Advanced analytics, dealer NPS, cross-location comparison, AI coaching alerts for underperforming lead sequences</td></tr>
+                        <tr><td>Post-Sale Retention Module</td><td>Automated maintenance reminder sequences, attachment upsell campaigns, service booking AI</td></tr>
+                        <tr><td>Sales Playbook</td><td>Repeatable dealer pitch, ROI calculator with real pilot data, demo environment, objection-handling guide</td></tr>
+                        <tr><td>OEM Conversations</td><td>Initial conversations with CASE regional team about co-selling or white-label licensing to dealer network</td></tr>
+                    </tbody>
+                </table>
+                <p class="phase-deliverable">Deliverable: 15 active dealers. $744,000 annualized ARR. Case studies published. OEM conversation underway.</p>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase-card">
+                <div class="phase-card-header">
+                    <span class="phase-tag">Phase 3</span>
+                    <h3>Channel Partner &amp; Exit Positioning</h3>
+                    <span class="phase-duration">Months 10&ndash;36</span>
+                </div>
+                <p class="phase-goal">Goal: 25 to 100 dealers. Channel partner program. Strategic acquirer conversations at $25M&ndash;$50M valuation.</p>
+                <table class="scope-table">
+                    <tbody>
+                        <tr><td>Channel Partner Program</td><td>Certified reseller program for construction industry consultants and OEM regional reps who can sell on commission</td></tr>
+                        <tr><td>Enterprise Tier Launch</td><td>Custom deployments for regional dealer groups (5+ locations). Dedicated customer success. Custom AI voice training.</td></tr>
+                        <tr><td>OEM White-Label Option</td><td>License MiniMe&trade; Equipment Division to CASE, Komatsu, or Caterpillar as an OEM-branded tool sold through their dealer network</td></tr>
+                        <tr><td>Geographic Expansion</td><td>U.S. market entry. Texas, Alberta, British Columbia, and Ontario priority corridors.</td></tr>
+                        <tr><td>M&amp;A Positioning</td><td>ARR documentation, customer retention data, churn analysis, and strategic acquirer target list prepared for the exit window</td></tr>
+                    </tbody>
+                </table>
+                <p class="phase-deliverable">Deliverable: 100 dealers. $4.97M gross ARR. Enterprise valuation $25M&ndash;$50M. Exit process initiated with mutual consent.</p>
+            </div>
+        </section>
+
+        <!-- ── 07 INFRASTRUCTURE ── -->
+        <section class="section">
+            <p class="section-number">07</p>
+            <h2>Platform Infrastructure</h2>
+
+            <p>MiniMe&trade; Equipment Division runs on the same production infrastructure that powers WFS AI Solutions Inc. Every dealer is fully isolated using row-level database security. No dealer sees another dealer's leads, contacts, or analytics.</p>
+
+            <table class="software-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Technology</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Backend API</td>
+                        <td>FastAPI (Python 3.11)</td>
+                        <td>Railway deployment, auto-scale, 99.9% SLA</td>
+                    </tr>
+                    <tr>
+                        <td>Database</td>
+                        <td>PostgreSQL (Supabase)</td>
+                        <td>Row-level security, per-dealer tenant isolation</td>
+                    </tr>
+                    <tr>
+                        <td>Voice AI</td>
+                        <td>ElevenLabs Conversational AI</td>
+                        <td>Outbound calls via Twilio, eleven_v3_conversational model</td>
+                    </tr>
+                    <tr>
+                        <td>SMS</td>
+                        <td>Twilio</td>
+                        <td>Per-dealer phone number, TCPA/CASL compliant</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>SendGrid</td>
+                        <td>White-label from-address per dealer</td>
+                    </tr>
+                    <tr>
+                        <td>Calendar</td>
+                        <td>Cal.com</td>
+                        <td>Demo booking, confirmation reminders, time zone handling</td>
+                    </tr>
+                    <tr>
+                        <td>CRM Connectors</td>
+                        <td>Custom FastAPI</td>
+                        <td>HubSpot, CDK Global, VinSolutions, Google Sheets fallback</td>
+                    </tr>
+                    <tr>
+                        <td>Dealer Portal</td>
+                        <td>React + Vercel</td>
+                        <td>White-label dealer-facing analytics and management dashboard</td>
+                    </tr>
+                    <tr>
+                        <td>Error Monitoring</td>
+                        <td>Sentry</td>
+                        <td>Real-time error tracking and alerting</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Each dealer is onboarded in 14 days: credentials on day 1, CRM connected and tested by day 4, lead sources live by day 6, AI script approved by day 8, end-to-end test complete by day 10, and live leads processed by day 14.</p>
+        </section>
+
+        <!-- ── 08 NEXT STEPS ── -->
+        <section class="section">
+            <p class="section-number">08</p>
+            <h2>Timeline &amp; Next Steps</h2>
+
+            <table class="timeline-table">
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Owner</th>
+                        <th>Target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Proposal reviewed, feedback provided</td>
+                        <td><span class="phase-label">Paul</span></td>
+                        <td>Within 7 days</td>
+                    </tr>
+                    <tr>
+                        <td>Partnership agreement drafted by WFS legal</td>
+                        <td><span class="phase-label">WFS</span></td>
+                        <td>5 days after confirmation</td>
+                    </tr>
+                    <tr>
+                        <td>Partnership agreement reviewed and signed</td>
+                        <td><span class="phase-label">Both</span></td>
+                        <td>14 days after draft</td>
+                    </tr>
+                    <tr>
+                        <td>Capital contributions transferred ($38K each)</td>
+                        <td><span class="phase-label">Both</span></td>
+                        <td>7 days after signing</td>
+                    </tr>
+                    <tr>
+                        <td>Development kickoff meeting</td>
+                        <td><span class="phase-label">Both + Dev Team</span></td>
+                        <td>3 days after capital transfer</td>
+                    </tr>
+                    <tr>
+                        <td>Phase 1 build complete</td>
+                        <td><span class="phase-label">Dev Team</span></td>
+                        <td>Day 60 from kickoff</td>
+                    </tr>
+                    <tr>
+                        <td>First pilot dealer live</td>
+                        <td><span class="phase-label">Paul</span></td>
+                        <td>Day 90 from kickoff</td>
+                    </tr>
+                    <tr>
+                        <td>3 pilot dealers active, ROI data captured</td>
+                        <td><span class="phase-label">Both</span></td>
+                        <td>Month 4</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="timeline-total">
+                <span>Signing to First Pilot Dealer Live</span>
+                <span>90 Days</span>
+            </div>
+
+            <p style="margin-top: 32px;">The construction equipment AI market has not yet been claimed by a dominant platform. The dealer relationships that make this possible are not replicable by a technology company starting from zero. The window for first-mover positioning is open. This is the partnership that takes it.</p>
+
+            <ul>
+                <li>Three pilot dealers from Paul's CASE network — live in 90 days</li>
+                <li>$1.24M ARR target at 25 dealers — achievable within 18 months of launch</li>
+                <li>$25M&ndash;$50M exit window — 100 dealers, 3 years from signing</li>
+            </ul>
+        </section>
+
+        <!-- ── CTA ── -->
+        <section class="cta-section">
+            <div class="gold-divider"></div>
+            <h2>Ready to Move Forward?</h2>
+            <p>This proposal is open for 30 days. The right conversation partner makes all the difference, and Paul brings exactly what the AI cannot: the dealer network, the domain trust, and the CASE relationships that turn a technology platform into a market category.</p>
+            <div class="contact-block">
+                <div class="contact-row">
+                    <span class="contact-label">From</span>
+                    <span class="contact-value">Cameron Wilson &mdash; WFS AI Solutions Inc.</span>
+                </div>
+                <div class="contact-row">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">cameron@wfsai.com</span>
+                </div>
+                <div class="contact-row">
+                    <span class="contact-label">Reference</span>
+                    <span class="contact-value">WFS-EQUIP-2026-001</span>
+                </div>
+            </div>
+            <div class="confidential">Strictly Private &amp; Confidential &mdash; Prepared Exclusively for Paul Scarff &middot; High Track &middot; May 27, 2026</div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="proposal-container">
+            <p class="footer-brand">WFS AI Solutions Inc.</p>
+            <p>MiniMe&trade; Equipment Division &mdash; WFS-EQUIP-2026-001</p>
+        </div>
+    </footer>
+
+    <script>
+        const dot = document.getElementById('cursor-dot');
+        const label = document.getElementById('cursor-label');
+
+        const labels = {
+            'A': 'Partnership',
+            'STRONG': 'Key Point',
+            'H2': 'Section',
+            'H3': 'Subsection',
+            'TD': 'Data',
+            'LI': 'Detail',
+            'P': 'Read',
+        };
+
+        document.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            label.style.left = e.clientX + 'px';
+            label.style.top = e.clientY + 'px';
+
+            const tag = e.target.tagName;
+            if (labels[tag]) {
+                label.textContent = labels[tag];
+                label.style.opacity = '1';
+            } else {
+                label.style.opacity = '0';
+            }
+        });
+    </script>
+</body>
+</html>
